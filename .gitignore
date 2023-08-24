@@ -1,0 +1,4 @@
+/node_modules
+/openapi/openapi_without_auth.yml
+.DS_Store
+redoc-static.html

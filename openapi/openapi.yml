@@ -1,0 +1,47 @@
+openapi: 3.0.1
+info:
+  title: playground-tea-discovery
+  description: 勉強用 tea-discovery API
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:88'
+    description: 開発環境
+paths:
+  /api/recommend:
+    get:
+      description: おすすめのお茶を取得する
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: object
+                description: おすすめのお茶のデータ
+                properties:
+                  type:
+                    type: string
+                    description: お茶の種類
+                    example: '紅茶'
+                  name:
+                    type: string
+                    description: お茶の名前
+                    example: 'ダージリン'
+                  price:
+                    type: integer
+                    description: お茶の値段（100gあたり）
+                    example: 5000
+        '500':
+          description: 'エラー'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+components:
+  schemas:
+    error:
+      type: 'object'
+      properties:
+        message:
+          type: 'string'
+          example: 'error'

@@ -1,0 +1,34 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[scripts]
+format = "bash -c 'isort . && autoflake -ri --remove-all-unused-imports --ignore-init-module-imports --remove-unused-variables . && black . '"
+test = "bash -c -o pipefail 'pipenv run setup && pipenv run stop_openapi && pipenv run setup_openapi && pipenv run start_openapi && pipenv run pytest | tee pytest-coverage.txt && pipenv run stop_openapi'"
+test-html = "bash -c -o pipefail 'pipenv run setup && pipenv run stop_openapi && pipenv run setup_openapi && pipenv run start_openapi && pipenv run pytest-html && pipenv run stop_openapi'"
+setup = "./setup.sh"
+pytest = "pytest --cov=./ --cov-branch --junitxml=pytest.xml --cov-report=term-missing"
+pytest-html = "pytest --cov=./ --cov-branch --junitxml=pytest.xml --cov-report=html"
+setup_openapi = "../setup_mock_server.sh"
+start_openapi = "yarn pm2 start start_mock_server.sh"
+stop_openapi = "bash -c 'yarn pm2 delete all | true'"
+
+[packages]
+
+[dev-packages]
+black = "*"
+mypy = "*"
+flake8 = "*"
+isort = "*"
+python-language-server = "*"
+pylsp-mypy = "*"
+pytest = "*"
+pytest-cov = "*"
+moto = "*"
+botostubs = "*"
+autoflake = "*"
+python-jose = "*"
+
+[requires]
+python_version = "3.9"

@@ -1,6 +1,6 @@
 data "archive_file" "hello_world_zip" {
   type        = "zip"
-  source_dir  = "${path.module}/../../../src/hello_world"
+  source_dir  = "${path.module}/../../../python/src/hello_world"
   output_path = "lambda/hello_world.zip"
 }
 
@@ -14,7 +14,6 @@ resource "aws_lambda_function" "hello_world" {
   architectures    = local.lambda_arch
   memory_size      = local.lambda_memory_size_mid
   timeout          = local.lambda_timeout_max
-  layers           = [aws_lambda_layer_version.common_layer.arn]
   depends_on = [
     aws_cloudwatch_log_group.hello_world
   ]

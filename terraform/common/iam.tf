@@ -1,5 +1,5 @@
-resource "aws_iam_role" "lambda_iam_role" {
-  name = "lambda_iam_role"
+resource "aws_iam_role" "nuu_lambda_iam_role" {
+  name = "nuu_lambda_iam_role"
 
   assume_role_policy = <<POLICY
 {
@@ -21,7 +21,7 @@ POLICY
 # Policy
 resource "aws_iam_role_policy" "lambda_access_policy" {
   name   = "lambda_access_policy"
-  role   = aws_iam_role.lambda_iam_role.id
+  role   = aws_iam_role.nuu_lambda_iam_role.id
   policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -32,7 +32,7 @@ resource "aws_iam_role_policy" "lambda_access_policy" {
         "logs:CreateLogStream",
         "logs:CreateLogGroup",
         "logs:PutLogEvents",
-        "dynamodb:*",
+        "dynamodb:*"
       ],
       "Resource": "*"
     }

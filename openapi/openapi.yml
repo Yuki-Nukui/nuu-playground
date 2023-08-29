@@ -1,42 +1,26 @@
-openapi: 3.0.1
+openapi: '3.0.1'
 info:
-  title: playground-tea-discovery
-  description: 勉強用 tea-discovery API
-  version: 1.0.0
+  title: nuu-playground-api
+  description: 勉強用
+  version: '1.0.0'
 servers:
-  - url: 'http://localhost:88'
+  - url: 'http://localhost:88/api'
     description: 開発環境
 paths:
-  /api/recommend:
+  /test:
     get:
-      description: おすすめのお茶を取得する
+      description: 'レスポンス確認'
       responses:
         '200':
-          description: 成功
-          content:
-            application/json:
-              schema:
-                type: object
-                description: おすすめのお茶のデータ
-                properties:
-                  type:
-                    type: string
-                    description: お茶の種類
-                    example: '紅茶'
-                  name:
-                    type: string
-                    description: お茶の名前
-                    example: 'ダージリン'
-                  price:
-                    type: integer
-                    description: お茶の値段（100gあたり）
-                    example: 5000
+          description: '成功'
         '500':
           description: 'エラー'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/error'
+      x-amazon-apigateway-integration:
+        $ref: '#/components/x-amazon-apigateway-integrations/refresh_token_cognito'
 components:
   schemas:
     error:
@@ -45,3 +29,11 @@ components:
         message:
           type: 'string'
           example: 'error'
+  x-amazon-apigateway-integrations:
+    refresh_token_cognito:
+      uri: '${arn_hello_world}'
+      payloadFormatVersion: '2.0'
+      type: 'aws_proxy'
+      httpMethod: 'POST'
+      credentials: '${arn_invoke_role}'
+      connectionType: 'INTERNET'

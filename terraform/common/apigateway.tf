@@ -3,6 +3,7 @@ data "template_file" "openapi" {
   template = file("${path.module}/../../openapi/openapi.yml")
   vars = {
     arn_invoke_role                         = "${aws_iam_role.lambda_apigateway_exec_role.arn}"
+    arn_hello_world                         = "${module.lambdas.arn_hello_world}"
   }
 }
 
